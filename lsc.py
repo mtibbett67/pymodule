@@ -26,7 +26,7 @@ SCRIPTS: []
 """
 
 # Standard library imports
-import os
+import os, fnmatch
 
 # Related third party imports
 
@@ -40,22 +40,36 @@ os.system('clear')
 SEPARATOR = "=" * 80
 NL = "\n"
 
-PYHEAD = "Python scripts available"
-PYLIST = os.listdir("/home/mark/Projects")
+def find(pattern, path):
+    result = []
+    for root, dirs, files in os.walk(path):
+        for name in files:
+            if fnmatch.fnmatch(name, pattern):
+                result.append(os.path.join(root, name))
+    return result
 
-SHHEAD = "Shell scripts available"
-SHLIST = os.listdir("/home/mark/Scripts")
+find('*.sh', '/home/mark/Projects/bash')
+
+###############################################################################
+
+#PYHEAD = "Python scripts available"
+#PYLIST = os.listdir("/home/mark/Projects")
+
+#SHHEAD = "Shell scripts available"
+#SHLIST = os.listdir("/home/mark/Scripts")
 
 
-def script_list(head, items):
-    """Get list of scrips in directory"""
-    print head
-    print SEPARATOR
-    for item in sorted(items):
-        print item
+#def script_list(head, items):
+#    """Get list of scrips in directory"""
+#    print head
+#    print SEPARATOR
+#    for item in sorted(items):
+#        print item
+#
+#    print NL
 
-    print NL
+#script_list(PYHEAD, PYLIST)
 
-script_list(PYHEAD, PYLIST)
+#script_list(SHHEAD, SHLIST
 
-script_list(SHHEAD, SHLIST)
+
